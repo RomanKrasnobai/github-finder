@@ -38,6 +38,7 @@ class App extends React.Component {
   };
 
   render() {
+    const { users, user, loading } = this.state;
     return (
       <Router>
         <div className="App">
@@ -52,17 +53,22 @@ class App extends React.Component {
                   <Search
                     searchUsers={this.searchUsers}
                     clearUsers={this.clearUsers}
-                    showClear={this.state.users.length > 0}
+                    showClear={users.length > 0}
                   />
                   <Users
-                    loading={this.state.loading}
-                    users={this.state.users}
+                    loading={loading}
+                    users={users}
                   />
                 </Fragment>
               )}/>
               <Route exact path="/about" component={About} />
               <Route exact path="/user/:login" render={props => (
-                  <User {...props} getUser={this.getUser} user={this.state.user} />
+                  <User
+                    {...props}
+                    getUser={this.getUser}
+                    user={user}
+                    loading={loading}
+                  />
                 )}
               />
             </Switch>
